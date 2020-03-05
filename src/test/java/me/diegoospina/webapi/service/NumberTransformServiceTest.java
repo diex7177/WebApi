@@ -21,6 +21,9 @@ class NumberTransformServiceTest {
         ResponseNumberTransform result = sut.arabicToRoman(arabicNumber);
 
         // Then
+
         assertThat(result, is(not(nullValue())));
+        assertThat(result.getArabicNumber(), is(1));
+        assertThat(result.getRomanNumber(), is("I"));
     }
 }

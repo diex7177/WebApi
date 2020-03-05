@@ -1,5 +1,6 @@
 package me.diegoospina.webapi.controller;
 
+import me.diegoospina.webapi.error.InvalidNumberException;
 import me.diegoospina.webapi.service.INumberTransformService;
 import me.diegoospina.webapi.vo.ResponseNumberTransform;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class NumberTransformController {
 
     @RequestMapping(value = "ArabicToRoman", method = RequestMethod.POST)
     public ResponseNumberTransform ArabicToRoman(@RequestBody int arabicNumber) {
-        return service.convertArabicToRoman(arabicNumber);
+        try {
+            return service.convertArabicToRoman(arabicNumber);
+        } catch (Exception ex) {
+            throw new InvalidNumberException(arabicNumber);
+        }
     }
 }

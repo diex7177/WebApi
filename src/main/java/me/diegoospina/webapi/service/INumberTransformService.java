@@ -6,8 +6,8 @@ public interface INumberTransformService {
     /**
      * Transform arabic number to roman
      *
-     * @param number
+     * @param arabicNumber number to convert
      * @return String roman number
      */
-    ResponseNumberTransform convertArabicToRoman(int number);
+    ResponseNumberTransform convertArabicToRoman(int arabicNumber);
 }

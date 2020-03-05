@@ -1,26 +1,31 @@
-package me.diegoospina.webapi.service;
+package me.diegoospina.webapi.controller;
+
 
 import me.diegoospina.webapi.service.impl.NumberTransformService;
 import me.diegoospina.webapi.vo.ResponseNumberTransform;
-import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-public class NumberTransformServiceTest {
-
-    private final INumberTransformService sut = new NumberTransformService();
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class NumberTransformControllerTest {
+    @Autowired
+    NumberTransformService numberTransformService;
 
     @Test
-    public void arabicToRomanSuccess() {
+    void arabicToRoman() {
         // Given
         int arabicNumber = 99;
 
         // When
-        ResponseNumberTransform result = sut.convertArabicToRoman(arabicNumber);
+        ResponseNumberTransform result = numberTransformService.convertArabicToRoman(arabicNumber);
 
         // Then
 
@@ -28,9 +33,6 @@ public class NumberTransformServiceTest {
         assertThat(result.getArabicNumber(), is(99));
         assertThat(result.getRomanNumber(), is("XCIX"));
     }
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void arabicToRomanFailure() {
@@ -40,7 +42,7 @@ public class NumberTransformServiceTest {
 
         //When - Then
         Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            sut.convertArabicToRoman(arabicNumber);
+            numberTransformService.convertArabicToRoman(arabicNumber);
         });
 
     }
